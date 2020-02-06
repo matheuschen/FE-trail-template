@@ -1,0 +1,23 @@
+{
+  "name": "fe-trail-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "echo \"lint:js [$(eslint --version)] => FE-trail-template\" && eslint --cache --ext .js,.ts,.tsx .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QultureRocks/FE-trail-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/QultureRocks/FE-trail-template/issues"
+  },
+  "homepage": "https://github.com/QultureRocks/FE-trail-template#readme",
+  "devDependencies": {
+    "@qulture/eslint-config-base": "^0.0.2"
+  }
+}

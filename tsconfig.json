@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "types": [
+      "react"
+    ]
+  },
+  "extends": "./node_modules/@qulture/eslint-config-base/tsconfig.json",
+  "include": [
+    "src/**/*",
+  ],
+  "exclude": []
+}
