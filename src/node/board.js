@@ -1,6 +1,6 @@
 const BoardConstruct = require('./boardConstructor');
 const BoardPrinter = require('./boardPrinter.js');
-// const Point = require('./point.js');
+const Point = require('./point.js');
 
 function Board(size) {
   const board = {
@@ -21,8 +21,9 @@ function Board(size) {
   return board;
 }
 
-/* const board = BoardGenerator(3);
+const board = Board(3);
 const a = Point(1, 2);
 board.updateBoard(a, 'X');
-board.print(); */
+board.print();
+
 module.exports = Board;
