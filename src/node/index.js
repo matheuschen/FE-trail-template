@@ -1,5 +1,6 @@
-const hello = () => {
-  console.log('Hello world!');
-};
+const hello = require("./hello.js");
 
-hello();
+hello.hello(hello.board);
+
+
+
