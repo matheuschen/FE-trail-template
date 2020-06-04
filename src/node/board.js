@@ -6,7 +6,7 @@ function Board(size) {
   const board = {
     size,
     matrix: BoardConstruct(size),
-    updateBoard(point, symbol) {
+    placePiece(point, symbol) {
       board.matrix[point.y][point.x].setSymbol(symbol);
     },
     print: () => {
@@ -14,13 +14,15 @@ function Board(size) {
     },
   };
 
-  board.matrix = BoardConstruct(size);
   return board;
 }
 
+//TEST
 const board = Board(3);
-const a = Point(1, 2);
-board.updateBoard(a, 'X');
+let a = Point(1, 2);
+board.placePiece(a, 'X');
+a = Point(0, 0);
+board.placePiece(a, 'O');
 board.print();
 
 module.exports = Board;
