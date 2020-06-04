@@ -1,19 +1,17 @@
 const BoardConstruct = require('./boardConstructor');
 const BoardPrinter = require('./boardPrinter.js');
 const Point = require('./point.js');
+//lalalallala
 
 function Board(size) {
   const board = {
     size,
-    matrix: [],
+    matrix: BoardConstruct(size),
     updateBoard(point, symbol) {
       board.matrix[point.y][point.x].setSymbol(symbol);
     },
     print: () => {
-      BoardPrinter(board.matrix);
-    },
-    resetBoard: newSize => {
-      board.matrix = BoardConstruct(newSize);
+      BoardPrinter(board);
     },
   };
 

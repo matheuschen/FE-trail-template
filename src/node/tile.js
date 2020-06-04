@@ -1,4 +1,4 @@
-function TileGenerator() {
+function Tile() {
   const tile = {
     symbol: ' ',
     setSymbol(newSymbol) {
@@ -8,4 +8,4 @@ function TileGenerator() {
   return tile;
 }
 
-module.exports = TileGenerator;
+module.exports = Tile;

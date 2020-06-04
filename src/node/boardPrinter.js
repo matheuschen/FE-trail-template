@@ -1,7 +1,7 @@
-function BoardPrinter(matrix) {
+function BoardPrinter(board) {
   let boardString = '  _   _   _\n\n';
 
-  matrix.forEach(row => {
+  board.matrix.forEach(row => {
     boardString += '| ';
     row.forEach(tile => {
       boardString += `${tile.symbol} | `;
