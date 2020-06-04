@@ -1,18 +1,16 @@
-const tileGenerator = require('./tile.js');
+const Tile = require('./tile.js');
 
-function boardConstruct(newSize) {
-  const boardLength = newSize;
-  const boardWidth = newSize;
+function BoardConstruct(boardDimension) {
   const matrixOfTiles = [];
 
-  for (let i = 0; i < boardLength; i += 1) {
+  for (let i = 0; i < boardDimension; i += 1) {
     const rowOfTiles = [];
-    for (let j = 0; j < boardWidth; j += 1) {
-      rowOfTiles.push(tileGenerator());
+    for (let j = 0; j < boardDimension; j += 1) {
+      rowOfTiles.push(Tile());
     }
     matrixOfTiles.push(rowOfTiles);
   }
   return matrixOfTiles;
 }
 
-module.exports = boardConstruct;
+module.exports = BoardConstruct;

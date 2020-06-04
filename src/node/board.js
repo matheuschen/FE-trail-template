@@ -5,25 +5,24 @@ const Point = require('./point.js');
 function Board(size) {
   const board = {
     size,
-    matrix: [],
-    updateBoard(point, symbol) {
+    matrix: BoardConstruct(size),
+    placePiece(point, symbol) {
       board.matrix[point.y][point.x].setSymbol(symbol);
     },
     print: () => {
-      BoardPrinter(board.matrix);
-    },
-    resetBoard: newSize => {
-      board.matrix = BoardConstruct(newSize);
+      BoardPrinter(board);
     },
   };
 
-  board.matrix = BoardConstruct(size);
   return board;
 }
 
+//TEST
 const board = Board(3);
-const a = Point(1, 2);
-board.updateBoard(a, 'X');
+let a = Point(1, 2);
+board.placePiece(a, 'X');
+a = Point(0, 0);
+board.placePiece(a, 'O');
 board.print();
 
 module.exports = Board;
