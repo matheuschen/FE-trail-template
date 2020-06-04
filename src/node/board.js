@@ -1,7 +1,6 @@
 const BoardConstruct = require('./boardConstructor');
 const BoardPrinter = require('./boardPrinter.js');
 const Point = require('./point.js');
-//lalalallala
 
 function Board(size) {
   const board = {
