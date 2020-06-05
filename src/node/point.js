@@ -1,7 +1,7 @@
-function Point(x, y) {
+function Point(row, col) {
   return {
-    x,
-    y,
+    row,
+    col,
   };
 }
 

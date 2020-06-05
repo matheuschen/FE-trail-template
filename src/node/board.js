@@ -5,18 +5,21 @@ function Board() {
   const board = {
     matrix: BoardConstruct(),
     placeSymbol: (point, symbol) => {
-      board.matrix[point.x][point.y].setSymbol(symbol);
-      board.matrix[point.x][point.y].setOccupiedToTrue();
+      board.matrix[point.row][point.col].setSymbol(symbol);
+      board.matrix[point.row][point.col].setOccupiedToTrue();
     },
     tileIsOccupied: point => {
-      return board.matrix[point.x][point.y].isOccupied;
+      return board.matrix[point.row][point.col].isOccupied;
     },
     getSymbol: point => {
-      return board.matrix[point.x][point.y].symbol;
+      return board.matrix[point.row][point.col].symbol;
     },
     print() {
       BoardPrinter(board);
     },
+    checkStatus(){
+      
+    }
   };
 
   return board;

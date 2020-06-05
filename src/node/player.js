@@ -23,15 +23,15 @@ function Player() {
 }
 
 function inputIsInvalid(userMove, board) {
-  if (Number.isNaN(userMove.x) || Number.isNaN(userMove.y)) {
+  if (Number.isNaN(userMove.row) || Number.isNaN(userMove.col)) {
     console.log('Movimento invalido!');
     return true;
   }
   if (
-    userMove.x > constants.boardSize - 1 ||
-    userMove.y > constants.boardSize - 1 ||
-    userMove.x < 0 ||
-    userMove.y < 0
+    userMove.row > constants.boardSize - 1 ||
+    userMove.col > constants.boardSize - 1 ||
+    userMove.row < 0 ||
+    userMove.col < 0
   ) {
     console.log('Movimento invalido!');
     return true;
