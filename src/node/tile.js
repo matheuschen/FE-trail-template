@@ -4,6 +4,10 @@ function Tile() {
     setSymbol(newSymbol) {
       tile.symbol = newSymbol;
     },
+    isOccupied: false,
+    setOccupiedToTrue() {
+      tile.isOccupied = true;
+    },
   };
   return tile;
 }
