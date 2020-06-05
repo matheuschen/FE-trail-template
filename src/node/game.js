@@ -15,7 +15,6 @@ function Game() {
 function runTheGame(game) {
   while (game.players.hasNoWinner()) {
     game.board.print();
-    console.log(`Player ${game.turnTracker.getTurn() + 1}`);
 
     const userMove = game.players
       .whoHasTheTurn(game.turnTracker.getTurn())

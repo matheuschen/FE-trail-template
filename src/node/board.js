@@ -11,6 +11,9 @@ function Board() {
     tileIsOccupied: point => {
       return board.matrix[point.x][point.y].isOccupied;
     },
+    getSymbol: point => {
+      return board.matrix[point.x][point.y].symbol;
+    },
     print() {
       BoardPrinter(board);
     },
@@ -33,15 +36,25 @@ function BoardConstruct() {
 }
 
 function BoardPrinter(board) {
-  let boardString = '  _   _   _\n\n';
+  let rowIndex = 0;
+  let boardString = '  0   1   2\n';
 
   board.matrix.forEach(row => {
-    boardString += '| ';
+    boardString += `${rowIndex} `;
     row.forEach(tile => {
-      boardString += `${tile.symbol} | `;
+      boardString += `${tile.symbol}`;
+      if (tile !== row[row.length - 1]) {
+        boardString += ' | ';
+      }
     });
-    boardString += '\n  _   _   _\n\n';
+
+    if (rowIndex !== constants.boardSize - 1) {
+      boardString += '\n  - | - | -\n';
+    }
+    rowIndex++;
   });
+
+  boardString += '\n';
   console.log(boardString);
 }
 
