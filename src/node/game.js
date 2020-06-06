@@ -16,10 +16,12 @@ function Game() {
     updateStatus: userMove => {
       if (WinChecker(userMove, game.board)) {
         game.status = gameStatus.WIN;
+        game.board.print();
         announceWinner(game);
       }
       if (DrawChecker(game.numOfPlays)) {
         game.status = gameStatus.DRAW;
+        game.board.print();
         announceDraw();
       }
     },
