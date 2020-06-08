@@ -1,5 +1,6 @@
 const prompt = require('prompt-sync')();
 const constants = require('./constants.js');
+const suggestWinnerMoves = require('./suggestWinnerMoves.js');
 const Point = require('./point.js');
 
 function Player() {
@@ -7,14 +8,15 @@ function Player() {
     isWinner: false,
     symbol: ' ',
     move(board) {
-      let userMove = player.promptMove();
+      let userMove = player.promptMove(board);
       while (inputIsInvalid(userMove, board)) {
-        userMove = player.promptMove();
+        userMove = player.promptMove(board);
       }
       return userMove;
     },
-    promptMove() {
+    promptMove(board) {
       console.log(`Vez de ${player.symbol}. Qual sua jogada? (linha, coluna)`);
+      suggestWinnerMoves(player, board);
       const userInput = prompt();
       return Point(Number(userInput[0]), Number(userInput[3]));
     },

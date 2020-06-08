@@ -8,6 +8,10 @@ function Board() {
       board.matrix[point.row][point.col].setSymbol(symbol);
       board.matrix[point.row][point.col].setOccupiedToTrue();
     },
+    eraseSymbol: point => {
+      board.matrix[point.row][point.col].setSymbol(' ');
+      board.matrix[point.row][point.col].setOccupiedToFalse();
+    },
     tileIsOccupied: point => {
       return board.matrix[point.row][point.col].isOccupied;
     },
