@@ -8,6 +8,9 @@ function Tile() {
     setOccupiedToTrue() {
       tile.isOccupied = true;
     },
+    setOccupiedToFalse() {
+      tile.isOccupied = false;
+    },
   };
   return tile;
 }
