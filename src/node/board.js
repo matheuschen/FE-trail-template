@@ -3,26 +3,26 @@ const Tile = require('./tile.js');
 
 function Board() {
   const board = {
-    matrix: BoardConstruct(),
+    matrix: buildBoardWithTiles(),
     placeSymbol: (point, symbol) => {
-      board.matrix[point.x][point.y].setSymbol(symbol);
-      board.matrix[point.x][point.y].setOccupiedToTrue();
+      board.matrix[point.row][point.col].setSymbol(symbol);
+      board.matrix[point.row][point.col].setOccupiedToTrue();
     },
     tileIsOccupied: point => {
-      return board.matrix[point.x][point.y].isOccupied;
+      return board.matrix[point.row][point.col].isOccupied;
     },
     getSymbol: point => {
-      return board.matrix[point.x][point.y].symbol;
+      return board.matrix[point.row][point.col].symbol;
     },
     print() {
-      BoardPrinter(board);
+      printBoard(board);
     },
   };
 
   return board;
 }
 
-function BoardConstruct() {
+function buildBoardWithTiles() {
   const matrixOfTiles = [];
 
   for (let i = 0; i < constants.boardSize; i += 1) {
@@ -35,11 +35,10 @@ function BoardConstruct() {
   return matrixOfTiles;
 }
 
-function BoardPrinter(board) {
-  let rowIndex = 0;
+function printBoard(board) {
   let boardString = '  0   1   2\n';
 
-  board.matrix.forEach(row => {
+  board.matrix.forEach((row, rowIndex) => {
     boardString += `${rowIndex} `;
     row.forEach(tile => {
       boardString += `${tile.symbol}`;
@@ -51,7 +50,6 @@ function BoardPrinter(board) {
     if (rowIndex !== constants.boardSize - 1) {
       boardString += '\n  - | - | -\n';
     }
-    rowIndex++;
   });
 
   boardString += '\n';

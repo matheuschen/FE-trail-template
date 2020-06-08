@@ -1,4 +1,23 @@
 const Game = require('./game.js');
+const prompt = require('prompt-sync')();
 
-const ticTacToe = Game();
-ticTacToe.start();
+let userWantsToPlay = true;
+while (userWantsToPlay) {
+  const ticTacToe = Game();
+  ticTacToe.start();
+  userWantsToPlay = promptPlayAgain();
+}
+
+function promptPlayAgain() {
+  console.log('Jogar novament? y/n');
+  const userInput = prompt();
+  if (userInput === 'y') {
+    return true;
+  }
+  if (userInput === 'n') {
+    return false;
+  }
+
+  console.log('Comando inválido.');
+  return false;
+}
