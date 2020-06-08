@@ -1,8 +1,10 @@
 const Game = require('./game.js');
+const promptCustomizeSymbols = require('./promptCustomizeSymbols.js');
 const prompt = require('prompt-sync')();
 
 let userWantsToPlay = true;
 while (userWantsToPlay) {
+  promptCustomizeSymbols();
   const ticTacToe = Game();
   ticTacToe.start();
   userWantsToPlay = promptPlayAgain();
