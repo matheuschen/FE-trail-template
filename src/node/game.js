@@ -4,6 +4,7 @@ const Referee = require('./referee.js');
 const Player = require('./player.js');
 const constants = require('./constants.js');
 const gameStatus = require('./gameStatus.js');
+const arrayOfSymbols = require('./tic-tac-toe.js');
 
 function Game() {
   const game = {
@@ -42,8 +43,8 @@ function constructArrayOfPlayers() {
 }
 
 function choosePlayersSymbols(arrayOfPlayers) {
-  arrayOfPlayers[0].symbol = 'X';
-  arrayOfPlayers[1].symbol = 'O';
+  arrayOfPlayers[0].symbol = constants.arrayOfSymbols[0];
+  arrayOfPlayers[1].symbol = constants.arrayOfSymbols[1];
 }
 
 module.exports = Game;
