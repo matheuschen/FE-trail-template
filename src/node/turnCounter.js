@@ -2,13 +2,15 @@ const constants = require('./constants.js');
 
 function TurnCounter() {
   const turnCounter = {
-    turn: 0,
+    numOfPlays: 0,
     update() {
-      turnCounter.turn += 1;
-      turnCounter.turn %= constants.numOfPlayers;
+      turnCounter.numOfPlays += 1;
     },
     getTurn() {
-      return turnCounter.turn;
+      return turnCounter.numOfPlays % constants.numOfPlayers;
+    },
+    getNumOfPlays() {
+      return this.numOfPlays;
     },
   };
 

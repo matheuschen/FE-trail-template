@@ -1,12 +1,12 @@
 const constants = require('./constants');
 
-function DrawChecker(numOfPlays) {
+function checkDraw(numOfPlays) {
   const maximumTurns = constants.boardSize * constants.boardSize;
 
-  if (numOfPlays === maximumTurns) {
+  if (numOfPlays === maximumTurns - 1) {
     return true;
   }
   return false;
 }
 
-module.exports = DrawChecker;
+module.exports = checkDraw;

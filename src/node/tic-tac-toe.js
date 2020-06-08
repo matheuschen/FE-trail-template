@@ -17,5 +17,7 @@ function WantsToPlayAgain() {
   if (userInput === 'n') {
     return false;
   }
+
+  console.log('Comando inválido.');
   return false;
 }

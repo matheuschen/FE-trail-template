@@ -1,7 +1,7 @@
 const constants = require('./constants.js');
 const Point = require('./point.js');
 
-function WinChecker(userMove, board) {
+function checkWin(userMove, board) {
   if (
     checkIfMoveWinsVertically(userMove, board) ||
     checkIfMoveWinsHorizontally(userMove, board) ||
@@ -93,4 +93,4 @@ function isNotInTheDiagonalNWtoSE(userMove) {
   return false;
 }
 
-module.exports = WinChecker;
+module.exports = checkWin;

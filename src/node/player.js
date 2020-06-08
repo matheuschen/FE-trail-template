@@ -23,25 +23,49 @@ function Player() {
 }
 
 function inputIsInvalid(userMove, board) {
-  if (Number.isNaN(userMove.row) || Number.isNaN(userMove.col)) {
-    console.log('Movimento invalido!');
+  if (isNotNumber(userMove)) {
+    console.log(
+      `Movimento inválido! A sua jogada (${userMove.row}, ${userMove.col}) não são números.`,
+    );
     return true;
   }
-  if (
-    userMove.row > constants.boardSize - 1 ||
-    userMove.col > constants.boardSize - 1 ||
-    userMove.row < 0 ||
-    userMove.col < 0
-  ) {
-    console.log('Movimento invalido!');
+  if (isOutOfBoard(userMove)) {
+    console.log(
+      `Movimento inválido! A sua jogada (${userMove.row}, ${userMove.col}) está fora do tabuleiro.`,
+    );
     return true;
   }
 
   if (board.tileIsOccupied(userMove)) {
-    console.log(`Casa já ocupada por ${board.getSymbol(userMove)}!`);
+    console.log(
+      `Movimento inválido! Casa já ocupada por ${board.getSymbol(userMove)}!`,
+    );
     return true;
   }
   return false;
 }
 
+function isNotNumber(userMove) {
+  if (Number.isNaN(userMove.row) || Number.isNaN(userMove.col)) {
+    return true;
+  }
+  return false;
+}
+
+function isOutOfBoard(userMove) {
+  const isOutsideBottomBound = userMove.row > constants.boardSize - 1;
+  const isOustideRightBound = userMove.col > constants.boardSize - 1;
+  const isOustideTopBound = userMove.row < 0;
+  const isOustideLeftBound = userMove.col < 0;
+
+  if (
+    isOutsideBottomBound ||
+    isOustideTopBound ||
+    isOustideRightBound ||
+    isOustideLeftBound
+  ) {
+    return true;
+  }
+  return false;
+}
 module.exports = Player;

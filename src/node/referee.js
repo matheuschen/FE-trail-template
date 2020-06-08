@@ -1,22 +1,38 @@
-const constants = require('./constants.js');
 const gameStatus = require('./gameStatus.js');
-const winChecker = require('./winChecker.js');
-const drawChecker = require('./drawChecker');
+const checkWin = require('./checkWin.js');
+const checkDraw = require('./checkDraw.js');
 
 function Referee() {
   const referee = {
-    getGameStatus: (userMove, board, turn) => {
-      if (winChecker(userMove, board)) {
-        return gameStatus.WIN;
+    gameStatus: gameStatus.ONGOING,
+    getGameStatus: () => {
+      return referee.gameStatus;
+    },
+    updateGameStatus: (userMove, game) => {
+      if (checkWin(userMove, game.board)) {
+        referee.gameStatus = gameStatus.WIN;
+        game.board.print();
+        announceWinner(game);
       }
-      if (drawChecker(turn)) {
-        return gameStatus.DRAW;
+      if (checkDraw(game.turnCounter.getNumOfPlays())) {
+        referee.gameStatus = gameStatus.DRAW;
+        game.board.print();
+        announceDraw();
       }
-
-      return gameStatus.ONGOING;
     },
   };
   return referee;
+}
+function announceWinner(game) {
+  console.log(
+    `Vitória de ${
+      game.playerWhoHasTheTurn(game.turnCounter.getTurn()).symbol
+    }! Parabéns!`,
+  );
+}
+
+function announceDraw() {
+  console.log('O jogo deu velha!');
 }
 
 module.exports = Referee;
