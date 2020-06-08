@@ -24,9 +24,7 @@ function Player() {
 
 function inputIsInvalid(userMove, board) {
   if (isNotNumber(userMove)) {
-    console.log(
-      `Movimento inválido! A sua jogada (${userMove.row}, ${userMove.col}) não são números.`,
-    );
+    console.log(`Movimento inválido! A sua jogada não são números.`);
     return true;
   }
   if (isOutOfBoard(userMove)) {
