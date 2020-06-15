@@ -60,7 +60,13 @@ export default function Game() {
       'O jogo deu velha!'
     );
   };
-
+  game.reset = () => {
+    game.turnCounter.reset();
+    game.announcerBox.reset();
+    game.board.reset();
+    game.status = 'ongoing';
+    game.board.addTilesEventListener(e => game.onClick(e));
+  }
   return game;
 }
 
