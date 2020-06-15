@@ -35,11 +35,11 @@ export default function Game() {
   game.endIfCan = () => {
     if(game.status !== 'ongoing'){
       game.announceResult();
-      game.removeAllEventListener();
+      game.removeTilesEventListener();
     }
   };
 
-  game.removeAllEventListener = () => {
+  game.removeTilesEventListener = () => {
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(tile => {let new_element = tile.cloneNode(true);
                             tile.parentNode.replaceChild(new_element, tile);});
