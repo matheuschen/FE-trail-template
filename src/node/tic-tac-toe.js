@@ -1,25 +1,26 @@
-const Game = require('./game.js');
-const promptCustomizeSymbols = require('./promptCustomizeSymbols.js');
-const prompt = require('prompt-sync')();
+import Game from './game.js';
 
-let userWantsToPlay = true;
-while (userWantsToPlay) {
-  promptCustomizeSymbols();
-  const ticTacToe = Game();
-  ticTacToe.start();
-  userWantsToPlay = promptPlayAgain();
-}
 
-function promptPlayAgain() {
-  console.log('Jogar novament? y/n');
-  const userInput = prompt();
-  if (userInput === 'y') {
-    return true;
-  }
-  if (userInput === 'n') {
-    return false;
-  }
+const ticTacToe = Game();
 
-  console.log('Comando inválido.');
-  return false;
+let tiles = document.querySelectorAll('.tile');
+tiles.forEach(tile => {
+  tile.addEventListener('click', (e) => ticTacToe.onClick(e));
+});
+
+const button = document.querySelector('#play-button');
+button.addEventListener('click', resetGame);
+
+function resetGame() {
+  ticTacToe.turnCounter.reset();
+  ticTacToe.announcerBox.reset();
+  ticTacToe.status = 'ongoing';
+
+  tiles = document.querySelectorAll('.tile');
+  tiles.forEach(tile => {
+  tile.addEventListener('click', (e) => ticTacToe.onClick(e));
+  });
+  tiles.forEach(tile => {
+    tile.innerHTML = '';
+  })
 }
