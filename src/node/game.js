@@ -9,6 +9,7 @@ export default function Game() {
   const game = {
     status: 'ongoing',
     winner: undefined,
+    lastMove: undefined,
     board: Board(),
     players: constructArrayOfPlayers(),
     turnCounter: TurnCounter(),
@@ -21,13 +22,15 @@ export default function Game() {
     game.announcerBox.reset();
     const tileSelected = e.target;
     game.currentPlayer = game.players[game.turnCounter.getTurn()];
-    if(game.currentPlayer.moveIsValid(tileSelected, game.board)){
+    if (game.currentPlayer.moveIsValid(tileSelected, game.board)){
+      game.lastMove = `(${tileSelected.getAttribute('row')}, ${tileSelected.getAttribute('col')})`;
       game.board.placeSymbol(tileSelected, game.currentPlayer);
       game.turnCounter.update();
       game.referee.updateGameStatus(tileSelected, game);
       game.endIfCan();
+
     }
-    else{
+    else {
       game.announcerBox.announce(`Movimento inválido! Casa já ocupada por ${game.board.getSymbol(tileSelected)}!`);
     }
   };
@@ -42,6 +45,7 @@ export default function Game() {
   game.announceResult = () => {
     if(game.status === 'win'){
       game.announceWinner();
+      game.announceWinMove();
     }
     if(game.status === 'draw'){
       game.announceDraw();
@@ -60,6 +64,10 @@ export default function Game() {
       'O jogo deu velha!'
     );
   };
+
+  game.announceWinMove = () => {
+    game.announcerBox.announce(`A jogada que venceu o jogo foi ${game.lastMove}`);
+  }
 
   game.reset = () => {
     game.turnCounter.reset();

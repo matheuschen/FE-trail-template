@@ -8,18 +8,19 @@ h1{
 
 .board {
     margin: 10px auto;
-    width: 600px;
+    width: 604px;
     height: 604px;
 
     display: flex;
     flex-direction: column;
+    position: relative;
 
 }
 
 .row {
    
     box-sizing: border-box;
-    width: 600px;
+    width: 604px;
     height: 202px;
 
     border: black solid;
@@ -28,7 +29,7 @@ h1{
 }
 
 .tile {
-    box-sizing: border-box;
+    
     width: 200px;
     height: 200px;
     float: left;
@@ -41,7 +42,7 @@ h1{
     font-weight: 100;
     color: plum;
     text-align: center;
-    line-height: 195px;
+    line-height: 200px;
     font-family: Arial, Helvetica, sans-serif;
 
 }
@@ -63,14 +64,10 @@ h1{
     width: 600px;
     height: 75px;
     background-color: azure;
-
     font-family: Arial, Helvetica, sans-serif;
     font-size: 30px;
     text-align: center;
     line-height: 75px;
-
-    
-
 }
 
 #play-button{
@@ -82,7 +79,6 @@ h1{
     border: black solid;
     border-width: 0.1em;
     border-radius: 0.1em;
-    
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     
@@ -96,5 +92,3 @@ h1{
 #play-button:active{
     background-color: lightskyblue;
 }
-
-
