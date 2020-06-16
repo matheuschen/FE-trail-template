@@ -1,63 +1,37 @@
-const constants = require('./constants.js');
-const Tile = require('./tile.js');
-
-function Board() {
+export default function Board() {
   const board = {
-    matrix: buildBoardWithTiles(),
-    placeSymbol: (point, symbol) => {
-      board.matrix[point.row][point.col].setSymbol(symbol);
-      board.matrix[point.row][point.col].setOccupiedToTrue();
+    placeSymbol: (tile, player) => {
+      tile.innerHTML = player.symbol;
+      tile.style.color = player.color;
     },
-    eraseSymbol: point => {
-      board.matrix[point.row][point.col].setSymbol(' ');
-      board.matrix[point.row][point.col].setOccupiedToFalse();
+    tileIsOccupied: tile => {
+      if(tile.innerHTML !== ''){
+        return true;
+      }
+      return false;
     },
-    tileIsOccupied: point => {
-      return board.matrix[point.row][point.col].isOccupied;
+    getSymbol: tile => {
+      return tile.innerHTML;
     },
-    getSymbol: point => {
-      return board.matrix[point.row][point.col].symbol;
+    removeTilesEventListener: () => {
+      const tiles = document.querySelectorAll('.tile');
+      tiles.forEach(tile => {const new_element = tile.cloneNode(true);
+                              tile.parentNode.replaceChild(new_element, tile);});
     },
-    print() {
-      printBoard(board);
+    addTilesEventListener: func => {
+      const tiles = document.querySelectorAll('.tile');
+      tiles.forEach(tile => {
+      tile.addEventListener('click', func);
+      });
+    },
+    reset: () => {
+      board.removeTilesEventListener();
+      const tiles = document.querySelectorAll('.tile');
+      tiles.forEach(tile => {tile.innerHTML = '';});
     },
   };
 
   return board;
 }
 
-function buildBoardWithTiles() {
-  const matrixOfTiles = [];
 
-  for (let i = 0; i < constants.boardSize; i += 1) {
-    const rowOfTiles = [];
-    for (let j = 0; j < constants.boardSize; j += 1) {
-      rowOfTiles.push(Tile());
-    }
-    matrixOfTiles.push(rowOfTiles);
-  }
-  return matrixOfTiles;
-}
-
-function printBoard(board) {
-  let boardString = '  0   1   2\n';
-
-  board.matrix.forEach((row, rowIndex) => {
-    boardString += `${rowIndex} `;
-    row.forEach(tile => {
-      boardString += `${tile.symbol}`;
-      if (tile !== row[row.length - 1]) {
-        boardString += ' | ';
-      }
-    });
-
-    if (rowIndex !== constants.boardSize - 1) {
-      boardString += '\n  - | - | -\n';
-    }
-  });
-
-  boardString += '\n';
-  console.log(boardString);
-}
-
-module.exports = Board;

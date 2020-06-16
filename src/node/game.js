@@ -1,35 +1,74 @@
-const Board = require('./board.js');
-const TurnCounter = require('./turnCounter.js');
-const Referee = require('./referee.js');
-const Player = require('./player.js');
-const constants = require('./constants.js');
-const gameStatus = require('./gameStatus.js');
-const arrayOfSymbols = require('./tic-tac-toe.js');
+import Board from './board.js';
+import TurnCounter from './turnCounter.js';
+import AnnouncerBox from './announcerBox.js';
+import Referee from './referee.js';
+import Player from './player.js';
+import { constants } from './constants.js';
 
-function Game() {
+export default function Game() {
   const game = {
-    numOfPlays: 0,
+    status: 'ongoing',
+    winner: undefined,
     board: Board(),
     players: constructArrayOfPlayers(),
     turnCounter: TurnCounter(),
+    announcerBox: AnnouncerBox(),
     referee: Referee(),
-    start: () => runTheGame(game),
-    playerWhoHasTheTurn: turn => {
-      return game.players[turn];
-    },
+    
+  };
+  
+  game.onClick = (e) => {
+    game.announcerBox.reset();
+    const tileSelected = e.target;
+    game.currentPlayer = game.players[game.turnCounter.getTurn()];
+    if(game.currentPlayer.moveIsValid(tileSelected, game.board)){
+      game.board.placeSymbol(tileSelected, game.currentPlayer);
+      game.turnCounter.update();
+      game.referee.updateGameStatus(tileSelected, game);
+      game.endIfCan();
+    }
+    else{
+      game.announcerBox.announce(`Movimento inválido! Casa já ocupada por ${game.board.getSymbol(tileSelected)}!`);
+    }
+  };
+
+  game.endIfCan = () => {
+    if(game.status !== 'ongoing'){
+      game.announceResult();
+      game.board.removeTilesEventListener();
+    }
+  };
+
+  game.announceResult = () => {
+    if(game.status === 'win'){
+      game.announceWinner();
+    }
+    if(game.status === 'draw'){
+      game.announceDraw();
+    }
+  };
+
+  game.announceWinner = () => {
+    game.announcerBox.announce(
+      `Vitória de ${
+        game.winner
+      }! Parabéns!`,);
+  };
+
+  game.announceDraw = () => {
+    game.announcerBox.announce(
+      'O jogo deu velha!'
+    );
+  };
+
+  game.reset = () => {
+    game.turnCounter.reset();
+    game.announcerBox.reset();
+    game.board.reset();
+    game.status = 'ongoing';
+    game.board.addTilesEventListener(e => game.onClick(e));
   };
   return game;
-}
-
-function runTheGame(game) {
-  while (game.referee.getGameStatus() === gameStatus.ONGOING) {
-    game.board.print();
-    const currentPlayer = game.playerWhoHasTheTurn(game.turnCounter.getTurn());
-    const userMove = currentPlayer.move(game.board);
-    game.board.placeSymbol(userMove, currentPlayer.symbol);
-    game.referee.updateGameStatus(userMove, game);
-    game.turnCounter.update();
-  }
 }
 
 function constructArrayOfPlayers() {
@@ -43,8 +82,9 @@ function constructArrayOfPlayers() {
 }
 
 function choosePlayersSymbols(arrayOfPlayers) {
-  arrayOfPlayers[0].symbol = constants.arrayOfSymbols[0];
-  arrayOfPlayers[1].symbol = constants.arrayOfSymbols[1];
+  arrayOfPlayers[0].symbol = 'X';
+  arrayOfPlayers[0].color = 'plum';
+  arrayOfPlayers[1].symbol = 'O';
+  arrayOfPlayers[1].color = 'lightgreen';
 }
 
-module.exports = Game;

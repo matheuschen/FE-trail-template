@@ -1,96 +1,109 @@
-const constants = require('./constants.js');
-const Point = require('./point.js');
+import { constants } from './constants.js';
 
-function checkWin(userMove, board) {
+export default function checkWin(tileSelected, board) {
   if (
-    checkIfMoveWinsVertically(userMove, board) ||
-    checkIfMoveWinsHorizontally(userMove, board) ||
-    checkIfMoveWinsDiagonallyNEtoSWaxis(userMove, board) ||
-    checkIfMoveWinsDiagonallyNWtoSEaxis(userMove, board)
+    checkIfMoveWinsVertically(tileSelected, board) ||
+    checkIfMoveWinsHorizontally(tileSelected, board) ||
+    checkIfMoveWinsDiagonallyNEtoSWaxis(tileSelected, board) ||
+    checkIfMoveWinsDiagonallyNWtoSEaxis(tileSelected, board)
   ) {
     return true;
   }
   return false;
 }
 
-function checkIfMoveWinsVertically(userMove, board) {
-  const playerSymbol = board.getSymbol(userMove);
+function checkIfMoveWinsVertically(tileSelected, board) {
+  const playerSymbol = board.getSymbol(tileSelected);
+  const row = tileSelected.getAttribute('row');
+  
   for (
-    let pointIterator = Point(userMove.row, 0);
-    pointIterator.col < constants.boardSize;
-    pointIterator.col += 1
+    let colIterator = 0;
+    colIterator < constants.boardSize;
+    colIterator += 1
   ) {
-    if (board.getSymbol(pointIterator) !== playerSymbol) {
+
+    const tile = document.querySelector('[row="' + row + '"][col="' + colIterator + '"]');
+    if (board.getSymbol(tile) !== playerSymbol) {
       return false;
     }
   }
   return true;
 }
 
-function checkIfMoveWinsHorizontally(userMove, board) {
-  const playerSymbol = board.getSymbol(userMove);
+function checkIfMoveWinsHorizontally(tileSelected, board) {
+  const playerSymbol = board.getSymbol(tileSelected);
+  const col = tileSelected.getAttribute('col');
+
   for (
-    let pointIterator = Point(0, userMove.col);
-    pointIterator.row < constants.boardSize;
-    pointIterator.row += 1
+    let rowIterator = 0;
+    rowIterator < constants.boardSize;
+    rowIterator += 1
   ) {
-    if (board.getSymbol(pointIterator) !== playerSymbol) {
+    const tile = document.querySelector('[col="' + col + '"][row="' + rowIterator + '"]');
+    if (board.getSymbol(tile) !== playerSymbol) {
       return false;
     }
   }
   return true;
 }
 
-function checkIfMoveWinsDiagonallyNWtoSEaxis(userMove, board) {
-  if (isNotInTheDiagonalNWtoSE(userMove)) {
+function checkIfMoveWinsDiagonallyNWtoSEaxis(tileSelected, board) {
+  if (isNotInTheDiagonalNWtoSE(tileSelected)) {
     return false;
   }
 
-  const playerSymbol = board.getSymbol(userMove);
-  for (
-    let pointIterator = Point(0, 0);
-    pointIterator.row < constants.boardSize;
-    pointIterator.row++, pointIterator.col++
+  const playerSymbol = board.getSymbol(tileSelected);
+  let rowIterator = 0;
+  let colIterator = 0;
+  for(;
+    rowIterator < constants.boardSize;
+    rowIterator++, colIterator++
   ) {
-    if (board.getSymbol(pointIterator) !== playerSymbol) {
+    const tile = document.querySelector('[col="' + colIterator + '"][row="' + rowIterator + '"]');
+    if (board.getSymbol(tile) !== playerSymbol) {
       return false;
     }
   }
   return true;
 }
 
-function checkIfMoveWinsDiagonallyNEtoSWaxis(userMove, board) {
-  if (isNotInTheDiagonalNEtoSW(userMove)) {
+function checkIfMoveWinsDiagonallyNEtoSWaxis(tileSelected, board) {
+  if (isNotInTheDiagonalNEtoSW(tileSelected)) {
     return false;
   }
 
-  const playerSymbol = board.getSymbol(userMove);
-  for (
-    let pointIterator = Point(0, constants.boardSize - 1);
-    pointIterator.row < constants.boardSize;
-    pointIterator.row++, pointIterator.col--
+  const playerSymbol = board.getSymbol(tileSelected);
+  let rowIterator = 0;
+  let colIterator = constants.boardSize - 1;
+  for(;
+    rowIterator < constants.boardSize;
+    rowIterator++, colIterator--
   ) {
-    if (board.getSymbol(pointIterator) !== playerSymbol) {
+    
+    
+    const tile = document.querySelector('[col="' + colIterator + '"][row="' + rowIterator + '"]');
+    if (board.getSymbol(tile) !== playerSymbol) {
       return false;
     }
   }
+  
   return true;
 }
 
-function isNotInTheDiagonalNEtoSW(userMove) {
-  const rowDiff = constants.boardSize - userMove.row;
-  const colDiff = constants.boardSize - userMove.col;
-  if (rowDiff !== colDiff) {
+function isNotInTheDiagonalNEtoSW(tileSelected) {
+  const row = tileSelected.getAttribute('row');
+  const colDiff = (constants.boardSize - 1) - tileSelected.getAttribute('col');
+  if (row != colDiff) {
+    
     return true;
   }
   return false;
 }
 
-function isNotInTheDiagonalNWtoSE(userMove) {
-  if (userMove.row !== userMove.col) {
+function isNotInTheDiagonalNWtoSE(tileSelected) {
+  if (tileSelected.getAttribute('row') !== tileSelected.getAttribute('col')) {
     return true;
   }
   return false;
 }
 
-module.exports = checkWin;

@@ -1,12 +1,12 @@
-const constants = require('./constants');
+import { constants } from './constants.js';
 
-function checkDraw(numOfPlays) {
+export default function checkDraw(numOfPlays) {
   const maximumTurns = constants.boardSize * constants.boardSize;
 
-  if (numOfPlays === maximumTurns - 1) {
+  if (numOfPlays === maximumTurns) {
     return true;
   }
   return false;
 }
 
-module.exports = checkDraw;
+
