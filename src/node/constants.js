@@ -1,4 +1,4 @@
 export const constants = {
   numOfPlayers: 2,
-  boardSize: 3,
+  boardSize: 5,
 };
