@@ -45,7 +45,6 @@ export default function Game() {
   game.announceResult = () => {
     if(game.status === 'win'){
       game.announceWinner();
-      game.announceWinMove();
     }
     if(game.status === 'draw'){
       game.announceDraw();
@@ -56,7 +55,9 @@ export default function Game() {
     game.announcerBox.announce(
       `Vitória de ${
         game.winner
-      }! Parabéns!`,);
+      }! Parabéns!
+      A jogada que venceu o jogo foi ${game.lastMove}`,
+      );
   };
 
   game.announceDraw = () => {
@@ -64,10 +65,6 @@ export default function Game() {
       'O jogo deu velha!'
     );
   };
-
-  game.announceWinMove = () => {
-    game.announcerBox.announce(`A jogada que venceu o jogo foi ${game.lastMove}`);
-  }
 
   game.reset = () => {
     game.turnCounter.reset();
